@@ -15,7 +15,7 @@ import jbamboo.innerproducts.InnerProduct;
 import jbamboo.innerproducts.StandardRealInnerProduct;
 import jbamboo.mesh.Mesh;
 import jbamboo.mesh.MeshNode;
-import jbamboo.mesh.MockSynthesizer;
+import jbamboo.mesh.LinearSynthesizer;
 import jbamboo.mockobjects.MockTesselationPolicy;
 
 
@@ -31,7 +31,7 @@ public class JBambooMain extends JBambooNamespace {
 		// TODO Auto-generated method stub
 		System.out.println("Hello from JBamboo");
 		
-		MockSynthesizer meshSynth = new MockSynthesizer(new MockTesselationPolicy());
+		LinearSynthesizer meshSynth = new LinearSynthesizer(new MockTesselationPolicy());
 		try {
 			meshSynth.fauxMeshConstructor(0.0, 1.0, natural(9));
 		} catch (InvalidIntervalException e) {

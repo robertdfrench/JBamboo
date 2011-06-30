@@ -12,9 +12,9 @@ import jbamboo.exceptions.InvalidIntervalException;
  * @author robertdfrench
  *
  */
-public class MockSynthesizer extends MeshSynthesizer {
+public class LinearSynthesizer extends MeshSynthesizer {
 
-	public MockSynthesizer(TesselationPolicy tp) {
+	public LinearSynthesizer(TesselationPolicy tp) {
 		super(tp);
 		mesh = new Mesh();
 	}
