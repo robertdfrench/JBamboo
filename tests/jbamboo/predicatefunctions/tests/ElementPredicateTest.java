@@ -1,6 +1,8 @@
 package jbamboo.predicatefunctions.tests;
 
 import static org.junit.Assert.*;
+import jbamboo.basetypes.Point;
+import jbamboo.mockobjects.MockFiniteElement;
 import jbamboo.predicatefunctions.ElementPredicate;
 
 import org.junit.After;
@@ -29,17 +31,19 @@ public class ElementPredicateTest {
 
 	@Test
 	public final void testToString() {
-		ElementPredicate pred = new ElementPredicate(new MockFiniteElement);
+		ElementPredicate pred = new ElementPredicate(new MockFiniteElement());
+		assertEquals(pred.toString(), "p \\in null");
 	}
 
 	@Test
 	public final void testElementPredicate() {
-		fail("Not yet implemented"); // TODO
+		new ElementPredicate(new MockFiniteElement());
 	}
 
 	@Test
 	public final void testMatches() {
-		fail("Not yet implemented"); // TODO
+		ElementPredicate pred = new ElementPredicate(new MockFiniteElement());
+		assertFalse(pred.matches(new Point()));
 	}
 
 }
