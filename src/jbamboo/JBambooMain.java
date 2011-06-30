@@ -16,7 +16,7 @@ import jbamboo.innerproducts.StandardRealInnerProduct;
 import jbamboo.mesh.Mesh;
 import jbamboo.mesh.MeshNode;
 import jbamboo.mesh.MockSynthesizer;
-import jbamboo.mesh.MockTesselationPolicy;
+import jbamboo.mockobjects.MockTesselationPolicy;
 
 
 public class JBambooMain extends JBambooNamespace {
