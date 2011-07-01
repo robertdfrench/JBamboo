@@ -35,9 +35,14 @@ public class MeshSynthesizer extends JBambooNamespace {
 		for (Integer i : natural(nodeIds.length)) {
 			requestedNodes[i - 1] = mesh.getNode(nodeIds[i - 1]);
 		}
-		tp.createElement(requestedNodes);
+		FiniteElement el = tp.createElement(requestedNodes);
+		hangElementOnMesh(el, requestedNodes);
 	}
 	
+	private void hangElementOnMesh(FiniteElement el, MeshNode[] requestedNodes) {
+		
+	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

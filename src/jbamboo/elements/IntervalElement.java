@@ -13,6 +13,11 @@ public class IntervalElement extends FiniteElement {
 	private Point lowerBound;
 	private Point upperBound;
 	
+	public IntervalElement(SemiconstructorAuthorization sa) {
+		lowerBound = new Point();
+		upperBound = new Point();
+	}
+	
 	public IntervalElement(Point p, Point q) throws InvalidIntervalException {
 		if (p.getCoordinate(1) >= q.getCoordinate(1)) throw new InvalidIntervalException();
 		initializePoints(new Natural(2));
