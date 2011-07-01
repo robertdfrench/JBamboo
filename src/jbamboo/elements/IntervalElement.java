@@ -40,6 +40,11 @@ public class IntervalElement extends FiniteElement {
 		// TODO Auto-generated method stub
 		return lowerBound.plus(localPoint);
 	}
+	
+	public Point[] getPoints() {
+		Point[] points = {lowerBound, upperBound};
+		return points;
+	}
 
 	@Override
 	public boolean contains(Point p) {

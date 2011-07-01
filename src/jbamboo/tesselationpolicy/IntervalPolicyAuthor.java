@@ -9,8 +9,8 @@ public class IntervalPolicyAuthor extends PolicyAuthor {
 	private SemiconstructorAuthorization sa;
 	
 	public IntervalPolicyAuthor() {
-		tp = new TesselationPolicy();
 		sa = new SemiconstructorAuthorization();
+		tp = new TesselationPolicy(sa);
 		IntervalElement templateElement = new IntervalElement(sa);
 		tp.addRule(2, templateElement);
 	}

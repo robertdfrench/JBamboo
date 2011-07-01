@@ -64,6 +64,17 @@ public class Point {
 		return (coordinateValue == null) ? 0.0 : coordinateValue;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		Point that = (Point) o;
+		TreeSet<Integer> keys = new TreeSet<Integer>(this.coordinates.keySet());
+		keys.addAll(that.coordinates.keySet());
+		for (Integer i : keys) {
+			if (this.getCoordinate(i) != that.getCoordinate(i)) return false;
+		}
+		return true;
+	}
+	
 	// Convenience Functions
 	
 	public Double x() {

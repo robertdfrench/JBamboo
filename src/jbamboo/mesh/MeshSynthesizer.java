@@ -1,6 +1,5 @@
 package jbamboo.mesh;
 
-import jbamboo.basetypes.BijectiveMap;
 import jbamboo.basetypes.JBambooNamespace;
 import jbamboo.basetypes.Point;
 import jbamboo.elements.FiniteElement;
@@ -14,20 +13,16 @@ import jbamboo.tesselationpolicy.TesselationPolicy;
  */
 public class MeshSynthesizer extends JBambooNamespace {
 	private Mesh mesh;
-	private BijectiveMap<Point,Integer> dictionary;
 	private TesselationPolicy tp;
 	
 	public MeshSynthesizer(TesselationPolicy tp) {
 		mesh = new Mesh();
-		dictionary = new BijectiveMap<Point,Integer>();
 		this.tp = tp;
 	}
 	
-	public boolean createNode(Point p, Integer nodeId) {
-		if (dictionary.containsEntry(p,nodeId)) return false;
+	public void createNode(Point p, Integer nodeId) {
 		MeshNode node = new MeshNode(p);
 		mesh.addNode(nodeId, node);
-		return true;
 	}
 	
 	public void createElement(Integer ... nodeIds) {
@@ -40,7 +35,9 @@ public class MeshSynthesizer extends JBambooNamespace {
 	}
 	
 	private void hangElementOnMesh(FiniteElement el, MeshNode[] requestedNodes) {
-		
+		for (MeshNode node : requestedNodes) {
+			node.elements.add(el);
+		}
 	}
 
 	@Override

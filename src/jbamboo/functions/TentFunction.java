@@ -1,6 +1,5 @@
 package jbamboo.functions;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import jbamboo.basetypes.Point;
@@ -19,12 +18,19 @@ public class TentFunction extends RealFunction {
 	private PredicateFunction internalFunction;
 	
 	public static TentFunction forNode(MeshNode m, Double height) throws BadTentConfigurationException {
-		ArrayList<FiniteElement> elements = new ArrayList<FiniteElement>();
+		Point C = m.getPoint();
+		IntervalElement LC = null;
+		IntervalElement CR = null;
 		for (FiniteElement e : m) {
-			elements.add(e);
+			IntervalElement currentInterval = (IntervalElement) e;
+			Point[] intervalPoints = currentInterval.getPoints();
+			if (C.equals(intervalPoints[0])) {
+				CR = currentInterval;
+			} else {
+				LC = currentInterval;
+			}
 		}
-		IntervalElement LC = (IntervalElement) elements.get(0);
-		IntervalElement CR = (IntervalElement) elements.get(1);
+		
 		return new TentFunction(LC, CR, height);
 	}
 	
