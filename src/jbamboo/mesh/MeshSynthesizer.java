@@ -1,80 +1,46 @@
 package jbamboo.mesh;
 
-import java.util.HashMap;
-import java.util.HashSet;
-
+import jbamboo.basetypes.BijectiveMap;
 import jbamboo.basetypes.JBambooNamespace;
 import jbamboo.basetypes.Point;
 import jbamboo.elements.FiniteElement;
-import jbamboo.exceptions.TesselationPolicyViolation;
+import jbamboo.tesselationpolicy.TesselationPolicy;
 
 
 /**
  * This is responsible for construction of the mesh
- * @author robert
+ * @author robertdfrench
  *
  */
 public class MeshSynthesizer extends JBambooNamespace {
+	private Mesh mesh;
+	private BijectiveMap<Point,Integer> dictionary;
 	private TesselationPolicy tp;
-	protected Mesh mesh;
-	private Integer meshNodeIdSource;
-	private HashMap<Point, HashSet<FiniteElement>> elementDictionary;
 	
 	public MeshSynthesizer(TesselationPolicy tp) {
-		this.meshNodeIdSource = new Integer(0);
+		mesh = new Mesh();
+		dictionary = new BijectiveMap<Point,Integer>();
 		this.tp = tp;
-		this.mesh = new Mesh();
-		this.elementDictionary = new HashMap<Point, HashSet<FiniteElement>>();
 	}
 	
-	public void addFiniteElement(FiniteElement e) throws TesselationPolicyViolation {
-		tp.validateFiniteElement(e);
-		Point[] points = e.getPoints();
-		Integer currentMeshNodeId = currentMeshNodeId();
-		boolean successfullyAddedElement = false;
-		for (Point p : points) {
-			associatePointWithElement(p,e);
-			MeshNode m = tp.createMeshNode(p, elementDictionary.get(p), currentMeshNodeId);
-			if(m != null) {
-				currentMeshNodeId = nextMeshNodeId();
-				mesh.elements.add(e);
-				mesh.nodes.ensureCapacity(m.getMeshNodeId());
-				
-			}
+	public boolean createNode(Point p, Integer nodeId) {
+		if (dictionary.containsEntry(p,nodeId)) return false;
+		MeshNode node = new MeshNode(p);
+		mesh.addNode(nodeId, node);
+		return true;
+	}
+	
+	public void createElement(Integer ... nodeIds) {
+		MeshNode[] requestedNodes = new MeshNode[nodeIds.length];
+		for (Integer i : natural(nodeIds.length)) {
+			requestedNodes[i - 1] = mesh.getNode(nodeIds[i - 1]);
 		}
-		
-		
-		
-		if (!successfullyAddedElement) {
-			throw new TesselationPolicyViolation();
-		}
+		tp.createElement(requestedNodes);
 	}
 	
-	public boolean meshIsComplete() {
-		return tp.validateMesh(mesh);
-	}
-
-	public Mesh getMesh() {
-		return mesh;
-	}
-	
-	private void associatePointWithElement(Point p, FiniteElement e) {
-		if (!elementDictionary.containsKey(p)) elementDictionary.put(p, new HashSet<FiniteElement>());
-		elementDictionary.get(p).add(e);
-	}
-	
-	protected Integer nextMeshNodeId() {
-		meshNodeIdSource++;
-		return new Integer(meshNodeIdSource);
-	}
-
-	private Integer currentMeshNodeId() {
-		return new Integer(meshNodeIdSource);
-	}
-
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return String.format("Mesh Synthesizer with Tesselation Policy: %s", tp);
+		return String.format("Mesh Synthesizer for %s", mesh);
 	}
 }

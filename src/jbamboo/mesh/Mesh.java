@@ -1,11 +1,9 @@
 package jbamboo.mesh;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.TreeMap;
 
 import jbamboo.basetypes.JBambooNamespace;
-import jbamboo.elements.FiniteElement;
-
 
 
 /**
@@ -16,34 +14,29 @@ import jbamboo.elements.FiniteElement;
  *
  */
 public class Mesh extends JBambooNamespace implements Iterable<MeshNode> {
-	protected ArrayList<MeshNode> nodes;
-	protected ArrayList<FiniteElement> elements;
+	protected TreeMap<Integer,MeshNode> nodes;
+	
 	
 	protected Mesh() {
-		nodes = new ArrayList<MeshNode>();
-		elements = new ArrayList<FiniteElement>();
+		nodes = new TreeMap<Integer,MeshNode>();
 	}
 	
-	public MeshNode getNodeById(Integer nodeId) {
+	public MeshNode getNode(Integer nodeId) {
 		return nodes.get(nodeId);
 	}
 	
-	public FiniteElement getElementById(Integer elementId) {
-		return elements.get(elementId);
-	}
-	
-	public void addNode() {
-		
+	public void addNode(Integer nodeId, MeshNode node) {
+		nodes.put(nodeId,node);
 	}
 
 	@Override
 	public Iterator<MeshNode> iterator() {
 		// TODO Auto-generated method stub
-		return nodes.iterator();
+		return nodes.values().iterator();
 	}
 	
 	@Override
 	public String toString() {
-		return String.format("Mesh with %d nodes and %d elements", nodes.size(), elements.size());
+		return String.format("Mesh with %d nodes", nodes.size());
 	}
 }
