@@ -4,31 +4,26 @@ import jbamboo.basetypes.JBambooNamespace;
 import jbamboo.basetypes.Natural;
 import jbamboo.basetypes.Point;
 import jbamboo.exceptions.InvalidElementException;
-import jbamboo.exceptions.InvalidSemiconstructorAuthorization;
 import jbamboo.functions.RealFunction;
-import jbamboo.tesselationpolicy.SemiconstructorAuthorization;
 
 public abstract class FiniteElement extends JBambooNamespace {
-	
-	private SemiconstructorAuthorization token;
-	
+		
+	public static String typeName = "FiniteElement";
 	/**
-	 * This constructor should remain empty
+	 * This is a dummy constructor for use by the ElementFactory
 	 */
 	protected FiniteElement() {
 		
 	}
 	
-	public FiniteElement(SemiconstructorAuthorization token) throws InvalidSemiconstructorAuthorization {
-		this.token = token;
-	}
-	
+	@Override
+	public abstract boolean equals(Object o);
 	public abstract Double integrate(RealFunction f, Natural numPoints);
 	public abstract Double getLength();
 	public abstract Point translateToGlobalPoint(Point localPoint);
 	public abstract boolean contains(Point p);
 	public abstract String toString();
-	public abstract FiniteElement semiconstructor(SemiconstructorAuthorization token, Point ... points) throws InvalidElementException, InvalidSemiconstructorAuthorization;
+	protected abstract FiniteElement semiconstructor(Point ... points) throws InvalidElementException;
 	
 	private Point[] points;
 	
@@ -42,10 +37,6 @@ public abstract class FiniteElement extends JBambooNamespace {
 	
 	protected void setPoint(Natural i, Point p) {
 		points[i.toInt() - 1] = p;
-	}
-	
-	protected void validateToken(SemiconstructorAuthorization token) throws InvalidSemiconstructorAuthorization {
-		if (token != this.token) throw new InvalidSemiconstructorAuthorization();
 	}
 
 }

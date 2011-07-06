@@ -6,7 +6,7 @@ import jbamboo.elements.IntervalElement;
 import jbamboo.exceptions.BadTentConfigurationException;
 import jbamboo.exceptions.InvalidIntervalException;
 import jbamboo.functions.RealFunction;
-import jbamboo.functions.TentFunction;
+import jbamboo.functions.TentFunction2D;
 import jbamboo.mesh.MeshNode;
 import jbamboo.mockobjects.MockMeshNode;
 
@@ -41,7 +41,7 @@ public class TentFunctionTest {
 		Point R = new Point(1.0);
 		IntervalElement LC = new IntervalElement(L,C);
 		IntervalElement CR = new IntervalElement(C,R);
-		TentFunction f = new TentFunction(LC,CR,1.0);
+		TentFunction2D f = new TentFunction2D(LC,CR,1.0);
 		assertEquals(f.toString(),"");
 		fail("Not yet implemented"); // TODO
 	}
@@ -53,7 +53,7 @@ public class TentFunctionTest {
 		Point R = new Point(1.0);
 		IntervalElement LC = new IntervalElement(L,C);
 		IntervalElement CR = new IntervalElement(C,R);
-		TentFunction f = new TentFunction(LC,CR,1.0);
+		TentFunction2D f = new TentFunction2D(LC,CR,1.0);
 		
 		Double expected = 0.5;
 		Double got = f.valueForPoint(new Point(0.5));
@@ -63,7 +63,7 @@ public class TentFunctionTest {
 	@Test
 	public final void testTentFunctionForNode() throws InvalidIntervalException, BadTentConfigurationException {
 		MeshNode i = MockMeshNode.make();
-		TentFunction f = TentFunction.forNode(i,1.0);
+		TentFunction2D f = TentFunction2D.forNode(i,1.0);
 		
 		Double expected = 0.5;
 		Double got = f.valueForPoint(new Point(0.5));
@@ -77,7 +77,7 @@ public class TentFunctionTest {
 		Point R = new Point(1.0);
 		IntervalElement LC = new IntervalElement(L,C);
 		IntervalElement CR = new IntervalElement(C,R);
-		TentFunction f = new TentFunction(LC,CR,1.0);
+		TentFunction2D f = new TentFunction2D(LC,CR,1.0);
 		
 		Double expected = 0.5;
 		Double got = f.valueForPoint(new Point(0.5));
@@ -93,8 +93,8 @@ public class TentFunctionTest {
 		IntervalElement LC = new IntervalElement(L,C);
 		IntervalElement CR = new IntervalElement(C,R);
 		IntervalElement RS = new IntervalElement(R,S);
-		TentFunction f = new TentFunction(LC,CR,1.0);
-		TentFunction g = new TentFunction(CR,RS,1.0);
+		TentFunction2D f = new TentFunction2D(LC,CR,1.0);
+		TentFunction2D g = new TentFunction2D(CR,RS,1.0);
 		RealFunction h = f.times(g);
 		
 		Double expected = 0.25;
@@ -111,8 +111,8 @@ public class TentFunctionTest {
 		IntervalElement LC = new IntervalElement(L,C);
 		IntervalElement CR = new IntervalElement(C,R);
 		IntervalElement RS = new IntervalElement(R,S);
-		TentFunction f = new TentFunction(LC,CR,1.0);
-		TentFunction g = new TentFunction(CR,RS,1.0);
+		TentFunction2D f = new TentFunction2D(LC,CR,1.0);
+		TentFunction2D g = new TentFunction2D(CR,RS,1.0);
 		RealFunction h = f.plus(g);
 		
 		Double expected = 1.0;

@@ -4,18 +4,15 @@ import jbamboo.basetypes.Natural;
 import jbamboo.basetypes.Point;
 import jbamboo.exceptions.InvalidElementException;
 import jbamboo.exceptions.InvalidIntervalException;
-import jbamboo.exceptions.InvalidSemiconstructorAuthorization;
 import jbamboo.functions.RealFunction;
-import jbamboo.tesselationpolicy.SemiconstructorAuthorization;
 
 public class IntervalElement extends FiniteElement {
 
 	private Point lowerBound;
 	private Point upperBound;
-	
-	public IntervalElement(SemiconstructorAuthorization sa) {
-		lowerBound = new Point();
-		upperBound = new Point();
+		
+	protected IntervalElement() {
+		
 	}
 	
 	public IntervalElement(Point p, Point q) throws InvalidIntervalException {
@@ -70,12 +67,15 @@ public class IntervalElement extends FiniteElement {
 	}
 
 	@Override
-	public FiniteElement semiconstructor(SemiconstructorAuthorization token,
-			Point... points) throws InvalidElementException,
-			InvalidSemiconstructorAuthorization {
-		super.validateToken(token);
+	protected FiniteElement semiconstructor(Point... points) throws InvalidElementException {
 		if (points.length < 2) throw new InvalidIntervalException();
 		return new IntervalElement(points[0], points[1]);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		IntervalElement that = (IntervalElement) o;
+		return (this.lowerBound == that.lowerBound && this.upperBound == that.upperBound);
 	}
 
 }

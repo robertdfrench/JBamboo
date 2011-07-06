@@ -13,11 +13,11 @@ import jbamboo.predicatefunctions.PredicateFunctionConstructor;
 import jbamboo.predicatefunctions.RealPredicate;
 
 
-public class TentFunction extends RealFunction {
+public class TentFunction3D extends RealFunction {
 
 	private PredicateFunction internalFunction;
 	
-	public static TentFunction forNode(MeshNode m, Double height) throws BadTentConfigurationException {
+	public static TentFunction3D forNode(MeshNode m, Double height) throws BadTentConfigurationException {
 		Point C = m.getPoint();
 		IntervalElement LC = null;
 		IntervalElement CR = null;
@@ -30,20 +30,22 @@ public class TentFunction extends RealFunction {
 				LC = currentInterval;
 			}
 		}
-		
-		return new TentFunction(LC, CR, height);
+		if (LC == null || CR == null) throw new BadTentConfigurationException();
+		return new TentFunction3D(LC, CR, height);
 	}
 	
-	public TentFunction(IntervalElement LC, IntervalElement CR, Double height) throws BadTentConfigurationException {
-		Point L, C, R;
+	public TentFunction3D(IntervalElement LC, IntervalElement CR, Double height) throws BadTentConfigurationException {
+		Point L, C, R, Top;
 		RealPredicate leftPredicate, rightPredicate;
 
 		if (height <= 0.0) throw new BadTentConfigurationException();
 		try {
-			if (LC.getPoints()[1] != CR.getPoints()[0]) throw new BadTentConfigurationException();
+			if (!LC.getPoints()[1].equals(CR.getPoints()[0])) throw new BadTentConfigurationException();
 			L = LC.getPoints()[0];
 			C = LC.getPoints()[1];
 			R = CR.getPoints()[1];
+			Top = new Point(C);
+			Top.setCoordinate(2, height);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new BadTentConfigurationException();
 		}
@@ -51,8 +53,8 @@ public class TentFunction extends RealFunction {
 		leftPredicate = new ElementPredicate(LC);
 		rightPredicate = new ElementPredicate(CR);
 		
-		RealFunction leftWall = new Monomial(L,C);
-		RealFunction rightWall = new Monomial(C,R);
+		RealFunction leftWall = new Monomial(L,Top);
+		RealFunction rightWall = new Monomial(Top,R);
 		
 		PredicateFunctionConstructor pfc = new PredicateFunctionConstructor();
 		pfc.addRule(leftPredicate, leftWall);
@@ -66,7 +68,7 @@ public class TentFunction extends RealFunction {
 		return internalFunction.valueForPoint(p);
 	}
 
-	public PredicateFunction times(TentFunction that) {
+	public PredicateFunction times(TentFunction3D that) {
 		PredicateFunctionConstructor pfc = new PredicateFunctionConstructor();
 		HashSet<RealPredicate> predicates = this.internalFunction.overlappingPredicates(that.internalFunction);
 		for (RealPredicate predicate : predicates) {
@@ -79,7 +81,7 @@ public class TentFunction extends RealFunction {
 		return pfc.constructPredicateFunction();
 	}
 	
-	public PredicateFunction plus(TentFunction that) {
+	public PredicateFunction plus(TentFunction3D that) {
 		PredicateFunctionConstructor pfc = new PredicateFunctionConstructor();
 		HashSet<RealPredicate> predicates = this.internalFunction.joinedPredicates(that.internalFunction);
 		for (RealPredicate predicate : predicates) {
@@ -91,6 +93,6 @@ public class TentFunction extends RealFunction {
 	}
 	
 	public String toString() {
-		return internalFunction.toString();
+		return String.format("Tent Function with: %s",internalFunction.toString());
 	}
 }

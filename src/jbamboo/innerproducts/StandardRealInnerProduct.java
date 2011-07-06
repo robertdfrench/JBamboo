@@ -7,7 +7,6 @@ import jbamboo.basetypes.Natural;
 import jbamboo.elements.FiniteElement;
 import jbamboo.exceptions.IntegrationException;
 import jbamboo.exceptions.InvalidElementException;
-import jbamboo.functions.Product;
 import jbamboo.functions.RealFunction;
 
 public class StandardRealInnerProduct extends JBambooNamespace implements InnerProduct {
@@ -25,7 +24,7 @@ public class StandardRealInnerProduct extends JBambooNamespace implements InnerP
 		// TODO Auto-generated method stub
 		Double innerProduct = 0.0;
 		
-		RealFunction f_times_g = new Product(f,g);
+		RealFunction f_times_g = f.times(g);
 		for(FiniteElement e : elements) {
 			innerProduct += e.integrate(f_times_g, precision);
 		}

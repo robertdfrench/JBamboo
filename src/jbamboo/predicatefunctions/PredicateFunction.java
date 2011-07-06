@@ -82,6 +82,6 @@ public class PredicateFunction extends RealFunction {
 		for(Entry<RealPredicate,RealFunction> entry : functions.entrySet()) {
 			sb.append(String.format("%s \\iff %s", entry.getValue(), entry.getKey()));
 		}
-		return null;
+		return sb.toString();
 	}
 }

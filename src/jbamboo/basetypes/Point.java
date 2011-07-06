@@ -69,10 +69,13 @@ public class Point {
 		Point that = (Point) o;
 		TreeSet<Integer> keys = new TreeSet<Integer>(this.coordinates.keySet());
 		keys.addAll(that.coordinates.keySet());
+		boolean equals = true;
 		for (Integer i : keys) {
-			if (this.getCoordinate(i) != that.getCoordinate(i)) return false;
+			Double thisVal = this.getCoordinate(i);
+			Double thatVal = that.getCoordinate(i);
+			equals &= thisVal.equals(thatVal);
 		}
-		return true;
+		return equals;
 	}
 	
 	// Convenience Functions
