@@ -7,7 +7,11 @@ import jbamboo.exceptions.IntegrationException;
 import jbamboo.exceptions.InvalidElementException;
 import jbamboo.exceptions.InvalidElementType;
 
-
+/**
+ * Main entry point for running example applications
+ * @author robertdfrench
+ *
+ */
 public class JBambooMain extends JBambooNamespace {
 
 	/**
@@ -21,11 +25,10 @@ public class JBambooMain extends JBambooNamespace {
 	public static void main(String[] args) throws InvalidElementException, IntegrationException, InvalidElementType  {
 		System.out.println("Hello from JBamboo");
 		IntervalExample.doIntervalExample();
-		RectangleExample.doRectangleExample();
 	}
 	
 	
-	
+	@Override
 	public String toString() {
 		return "JBamboo prototype";
 	}
