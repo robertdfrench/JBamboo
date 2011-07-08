@@ -84,4 +84,13 @@ public class PredicateFunction extends RealFunction {
 		}
 		return sb.toString();
 	}
+
+	@Override
+	public RealFunction getDerivative() {
+		PredicateFunctionConstructor pfc = new PredicateFunctionConstructor();
+		for (RealPredicate pred : functions.keySet()) {
+			pfc.addRule(pred, functions.get(pred).getDerivative());
+		}
+		return pfc.constructPredicateFunction();
+	}
 }

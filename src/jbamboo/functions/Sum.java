@@ -20,4 +20,10 @@ public class Sum extends RealFunction {
 	public String toString() {
 		return String.format("(%s) + (%s)", left, right);
 	}
+
+	@Override
+	public RealFunction getDerivative() {
+		// TODO Auto-generated method stub
+		return new Sum(left.getDerivative(),right.getDerivative());
+	}
 }

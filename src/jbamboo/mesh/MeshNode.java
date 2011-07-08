@@ -11,10 +11,12 @@ import jbamboo.functions.RealFunction;
 public class MeshNode extends JBambooNamespace implements Iterable<FiniteElement> {
 	private Point p;
 	private RealFunction basisFunction;
+	private Integer nodeId;
 	protected HashSet<FiniteElement> elements;
 	
-	protected MeshNode(Point p) {
+	protected MeshNode(Point p, Integer nodeId) {
 		this.p = p;
+		this.nodeId = nodeId;
 		elements = new HashSet<FiniteElement>();
 	}	
 
@@ -52,5 +54,12 @@ public class MeshNode extends JBambooNamespace implements Iterable<FiniteElement
 	 */
 	public RealFunction getBasisFunction() {
 		return basisFunction;
+	}
+
+	/**
+	 * @return the nodeId
+	 */
+	public Integer getNodeId() {
+		return nodeId;
 	}
 }

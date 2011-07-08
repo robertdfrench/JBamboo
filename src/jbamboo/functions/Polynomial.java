@@ -12,6 +12,20 @@ public class Polynomial extends RealFunction {
 	public Polynomial() {
 		coefficients = new TreeMap<Integer,Double>();
 	}
+	
+	/**
+	 * This is meant to read well!<br/>
+	 * The call <code>new Polynomial(5,0,4,3,0)</code> corresponds to the
+	 * polynomial 5x^4 + 0x^3 + 4x^2 + 3x + 0
+	 * @param coefficientValues
+	 */
+	public Polynomial(Double ...coefficientValues) {
+		this();
+		int order = coefficientValues.length - 1;
+		for (int i = 0; i < coefficientValues.length; i++, order--) {
+			setCoefficient(order, coefficientValues[i]);
+		}		
+	}
 		
 	public Polynomial plus(Polynomial that) {
 		Polynomial sum = new Polynomial();
@@ -70,4 +84,14 @@ public class Polynomial extends RealFunction {
 		}
 		return sb.toString();
 	}
+
+	@Override
+	public RealFunction getDerivative() {
+		Polynomial derivative = new Polynomial();
+		for (Integer exponent : coefficients.keySet()) {
+			derivative.setCoefficient(exponent - 1, coefficients.get(exponent) * exponent);
+		}
+		return derivative;
+	}
+
 }

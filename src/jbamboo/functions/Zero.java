@@ -13,4 +13,10 @@ public class Zero extends RealFunction {
 	public String toString() {
 		return "0";
 	}
+
+	@Override
+	public RealFunction getDerivative() {
+		// TODO Auto-generated method stub
+		return this;
+	}
 }

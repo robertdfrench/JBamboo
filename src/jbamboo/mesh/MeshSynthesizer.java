@@ -23,7 +23,7 @@ public class MeshSynthesizer extends JBambooNamespace {
 	}
 	
 	public void createNode(Point p, Integer nodeId) {
-		MeshNode node = new MeshNode(p);
+		MeshNode node = new MeshNode(p, nodeId);
 		mesh.addNode(nodeId, node);
 	}
 	

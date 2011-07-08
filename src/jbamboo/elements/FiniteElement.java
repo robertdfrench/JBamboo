@@ -19,6 +19,7 @@ public abstract class FiniteElement extends JBambooNamespace {
 	@Override
 	public abstract boolean equals(Object o);
 	public abstract Double integrate(RealFunction f, Natural numPoints);
+	public abstract Double[] apply(RealFunction f, Natural numPoints);
 	public abstract Double getLength();
 	public abstract Point translateToGlobalPoint(Point localPoint);
 	public abstract boolean contains(Point p);

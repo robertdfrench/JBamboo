@@ -78,4 +78,24 @@ public class IntervalElement extends FiniteElement {
 		return (this.lowerBound == that.lowerBound && this.upperBound == that.upperBound);
 	}
 
+	@Override
+	public Double[] apply(RealFunction f, Natural numPoints) {
+		Double[] results = new Double[numPoints.toInt()];
+		Double width = this.getLength() / ((double) (numPoints.toInt() - 1));
+		Point p = new Point(lowerBound);
+		for(Integer i : numPoints) {
+			results[i - 1] = f.valueForPoint(p);
+			p.x(lowerBound.x() + i*width);
+		}
+		return results;
+	}
+
+	/**
+	 * Double width = this.getLength() / numPoints.toDouble();
+		Point p = new Point(lowerBound);
+		for (Integer i : numPoints) {
+			p.x(lowerBound.x() + i*width);
+			integral += width*f.valueForPoint(p);
+		}
+	 */
 }

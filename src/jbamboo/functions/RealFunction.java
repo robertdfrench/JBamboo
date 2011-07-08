@@ -13,5 +13,6 @@ public abstract class RealFunction extends JBambooNamespace {
 		return new Product(this, that);
 	}
 	
+	public abstract RealFunction getDerivative();
 	public abstract Double valueForPoint(Point p);
 }

@@ -4,12 +4,20 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+/**
+ * Representation of a point in R^n
+ * @author robertdfrench
+ *
+ */
 public class Point {
 
 	HashMap<Integer,Double> coordinates;
 	boolean stringBuilderIsDirty;
 	StringBuilder sb;
 	
+	/**
+	 * constructs the origin
+	 */
 	public Point() {
 		coordinates = new HashMap<Integer,Double>();
 		stringBuilderIsDirty = true;
@@ -24,24 +32,23 @@ public class Point {
 		stringBuilderIsDirty = true;
 	}
 	
-	public Point(Double x) {
+	/**
+	 * Constructor from a list of doubles
+	 * @param doubles
+	 */
+	public Point(Double ...doubles) {
 		this();
-		this.setCoordinate(1, x);
+		for (int i = 1; i <= doubles.length; i++) {
+			this.setCoordinate(i,doubles[i - 1]);
+		}
 	}
 	
-	public Point(Double x, Double y) {
-		this();
-		this.setCoordinate(1, x);
-		this.setCoordinate(2, y);
-	}
-	
-	public Point(Double x, Double y, Double z) {
-		this();
-		this.setCoordinate(1, x);
-		this.setCoordinate(2, y);
-		this.setCoordinate(3, z);
-	}
-	
+	/**
+	 * Adds each coordinate of <b>this</b> and <b>that</b>, returning a new Point.
+	 * Again, operator overloading would be nice here. 
+	 * @param that
+	 * @return (this + that)
+	 */
 	public Point plus(Point that) {
 		Point sum = new Point();
 		HashSet<Integer> keys = new HashSet<Integer>();

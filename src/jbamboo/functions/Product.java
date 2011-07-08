@@ -20,4 +20,13 @@ public class Product extends RealFunction {
 	public String toString() {
 		return String.format("(%s) * (%s)", left, right);
 	}
+
+	@Override
+	public RealFunction getDerivative() {
+		// TODO Auto-generated method stub
+		return new Sum(
+			new Product(left.getDerivative(),right),
+			new Product(left, right.getDerivative())
+		);
+	}
 }

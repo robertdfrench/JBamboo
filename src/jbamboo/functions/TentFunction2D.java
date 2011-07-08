@@ -95,4 +95,9 @@ public class TentFunction2D extends RealFunction {
 	public String toString() {
 		return String.format("Tent Function with: %s",internalFunction.toString());
 	}
+
+	@Override
+	public RealFunction getDerivative() {
+		return internalFunction.getDerivative();
+	}
 }

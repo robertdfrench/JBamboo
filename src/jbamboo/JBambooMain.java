@@ -1,5 +1,6 @@
 package jbamboo;
 
+import no.uib.cipr.matrix.sparse.IterativeSolverNotConvergedException;
 import jbamboo.basetypes.JBambooNamespace;
 
 import jbamboo.exceptions.BadTentConfigurationException;
@@ -21,8 +22,9 @@ public class JBambooMain extends JBambooNamespace {
 	 * @throws IntegrationException 
 	 * @throws InvalidElementException 
 	 * @throws InvalidElementType 
+	 * @throws IterativeSolverNotConvergedException 
 	 */
-	public static void main(String[] args) throws InvalidElementException, IntegrationException, InvalidElementType  {
+	public static void main(String[] args) throws InvalidElementException, IntegrationException, InvalidElementType, IterativeSolverNotConvergedException  {
 		System.out.println("Hello from JBamboo");
 		IntervalExample.doIntervalExample();
 	}
