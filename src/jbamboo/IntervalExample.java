@@ -47,7 +47,7 @@ public class IntervalExample extends JBambooNamespace {
 	 */
 	public static void doIntervalExample() throws InvalidElementType, InvalidElementException, IntegrationException, IterativeSolverNotConvergedException {
 		System.out.println("***************Interval Example*****************");
-		Integer numNodes = 11;
+		Integer numNodes = 51;
 		Integer numElements = numNodes - 1;
 		Double height = 1.0;
 		Integer precision = 100;

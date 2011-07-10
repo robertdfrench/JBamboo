@@ -6,15 +6,29 @@ import jbamboo.exceptions.InvalidElementException;
 import jbamboo.exceptions.InvalidIntervalException;
 import jbamboo.functions.RealFunction;
 
+/**
+ * Element Type representing a closed interval such as [0,1]
+ * @author robertdfrench
+ *
+ */
 public class IntervalElement extends FiniteElement {
 
 	private Point lowerBound;
 	private Point upperBound;
-		
+	
+	/**
+	 * This is the protected constructor that only the ElementFactory can call
+	 */
 	protected IntervalElement() {
 		
 	}
 	
+	/**
+	 * Regular constructor for use outside the ElementFactory
+	 * @param p
+	 * @param q
+	 * @throws InvalidIntervalException
+	 */
 	public IntervalElement(Point p, Point q) throws InvalidIntervalException {
 		if (p.getCoordinate(1) >= q.getCoordinate(1)) throw new InvalidIntervalException();
 		initializePoints(new Natural(2));
@@ -27,6 +41,9 @@ public class IntervalElement extends FiniteElement {
 	}
 
 	@Override
+	/**
+	 * returns the element length
+	 */
 	public Double getLength() {
 		// TODO Auto-generated method stub
 		return upperBound.x() - lowerBound.x();
@@ -38,6 +55,7 @@ public class IntervalElement extends FiniteElement {
 		return lowerBound.plus(localPoint);
 	}
 	
+	@Override
 	public Point[] getPoints() {
 		Point[] points = {lowerBound, upperBound};
 		return points;
@@ -90,12 +108,4 @@ public class IntervalElement extends FiniteElement {
 		return results;
 	}
 
-	/**
-	 * Double width = this.getLength() / numPoints.toDouble();
-		Point p = new Point(lowerBound);
-		for (Integer i : numPoints) {
-			p.x(lowerBound.x() + i*width);
-			integral += width*f.valueForPoint(p);
-		}
-	 */
 }

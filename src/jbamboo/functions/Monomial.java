@@ -2,6 +2,11 @@ package jbamboo.functions;
 
 import jbamboo.basetypes.Point;
 
+/**
+ * Simply a constructor class for 1st degree polynomials
+ * @author robertdfrench
+ *
+ */
 public class Monomial extends Polynomial {
 
 	/**

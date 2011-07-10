@@ -12,11 +12,23 @@ import jbamboo.predicatefunctions.PredicateFunction;
 import jbamboo.predicatefunctions.PredicateFunctionConstructor;
 import jbamboo.predicatefunctions.RealPredicate;
 
-
+/**
+ * This is a basis function which is suited to Interval Elements
+ * @author robertdfrench
+ *
+ */
 public class TentFunction2D extends RealFunction {
 
 	private PredicateFunction internalFunction;
 	
+	/**
+	 * Creates a TentFunction of height <code>height</code> that is formatted to be defined on the elements
+	 * adjacent to MeshNode <code>m</code>.
+	 * @param m
+	 * @param height
+	 * @return
+	 * @throws BadTentConfigurationException
+	 */
 	public static TentFunction2D forNode(MeshNode m, Double height) throws BadTentConfigurationException {
 		Point C = m.getPoint();
 		IntervalElement LC = null;
@@ -34,6 +46,14 @@ public class TentFunction2D extends RealFunction {
 		return new TentFunction2D(LC, CR, height);
 	}
 	
+	/**
+	 * Creates a TentFunction of height <code>height</code> which is defined over the IntervalElements <code>LC</code>
+	 * and <code>CR</code> which must both have the point <code>C</code> as endpoints.
+	 * @param LC
+	 * @param CR
+	 * @param height
+	 * @throws BadTentConfigurationException
+	 */
 	public TentFunction2D(IntervalElement LC, IntervalElement CR, Double height) throws BadTentConfigurationException {
 		Point L, C, R, Top;
 		RealPredicate leftPredicate, rightPredicate;
@@ -68,6 +88,11 @@ public class TentFunction2D extends RealFunction {
 		return internalFunction.valueForPoint(p);
 	}
 
+	/**
+	 * Multiplies two tent functions together, omitting definitions for non-overlapping elements
+	 * @param that
+	 * @return
+	 */
 	public PredicateFunction times(TentFunction2D that) {
 		PredicateFunctionConstructor pfc = new PredicateFunctionConstructor();
 		HashSet<RealPredicate> predicates = this.internalFunction.overlappingPredicates(that.internalFunction);
@@ -81,6 +106,11 @@ public class TentFunction2D extends RealFunction {
 		return pfc.constructPredicateFunction();
 	}
 	
+	/**
+	 * Adds the two tent functions, including definitions for both overlapping and non-overlapping elements
+	 * @param that
+	 * @return
+	 */
 	public PredicateFunction plus(TentFunction2D that) {
 		PredicateFunctionConstructor pfc = new PredicateFunctionConstructor();
 		HashSet<RealPredicate> predicates = this.internalFunction.joinedPredicates(that.internalFunction);

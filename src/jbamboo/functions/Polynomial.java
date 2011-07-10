@@ -5,10 +5,18 @@ import java.util.HashSet;
 
 import jbamboo.basetypes.Point;
 
+/**
+ * Represents a polynomial (only with integral, non-negative exponents
+ * @author robertdfrench
+ *
+ */
 public class Polynomial extends RealFunction {
 
 	private TreeMap<Integer,Double> coefficients;
 	
+	/**
+	 * Ye olde constructor, basically implements Zero
+	 */
 	public Polynomial() {
 		coefficients = new TreeMap<Integer,Double>();
 	}
@@ -27,6 +35,11 @@ public class Polynomial extends RealFunction {
 		}		
 	}
 		
+	/**
+	 * Returns the sum of coefficients from each of <code>this</code> and <code>that</code>.
+	 * @param that
+	 * @return the sum of coefficients from each of <code>this</code> and <code>that</code>.
+	 */
 	public Polynomial plus(Polynomial that) {
 		Polynomial sum = new Polynomial();
 		
@@ -40,6 +53,11 @@ public class Polynomial extends RealFunction {
 		return sum;
 	}
 	
+	/**
+	 * Returns the product of coefficients from each of <code>this</code> and <code>that</code>.
+	 * @param that
+	 * @return the product of coefficients from each of <code>this</code> and <code>that</code>.
+	 */
 	public Polynomial times(Polynomial that) {
 		Polynomial product = new Polynomial();
 		
@@ -53,15 +71,30 @@ public class Polynomial extends RealFunction {
 		return product;
 	}
 	
+	/**
+	 * Increment a given coefficient by a given value
+	 * @param power
+	 * @param coefficient
+	 */
 	public void plusEqualsCoefficient(int power, double coefficient) {
 		setCoefficient(power, getCoefficient(power) + coefficient);
 	}
 	
+	/**
+	 * Returns the coefficient for a given power
+	 * @param power
+	 * @return
+	 */
 	public Double getCoefficient(int power) {
 		Double coefficient = coefficients.get(power);
 		return (coefficient == null) ? 0.0 : coefficient;
 	}
 	
+	/**
+	 * Sets a coefficient for a given power
+	 * @param power
+	 * @param coefficient
+	 */
 	public void setCoefficient(int power, double coefficient) {
 		coefficients.put(power, coefficient);
 	}

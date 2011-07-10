@@ -2,6 +2,11 @@ package jbamboo.functions;
 
 import jbamboo.basetypes.Point;
 
+/**
+ * This is a Real Function which is defined to be Zero everywhere.
+ * @author robertdfrench
+ *
+ */
 public class Zero extends RealFunction {
 
 	@Override

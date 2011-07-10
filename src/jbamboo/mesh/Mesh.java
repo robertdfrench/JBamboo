@@ -13,8 +13,7 @@ import jbamboo.basetypes.SymmetricPairIterator;
 
 /**
  * This is a passive storage container for MeshNodes and FiniteElements
- * It may be indexed, but it should be agnostic of the Tesselation Policy
- * Or other construction issues.
+ * 
  * @author robertdfrench
  *
  */
@@ -22,14 +21,27 @@ public class Mesh extends JBambooNamespace implements Iterable<MeshNode> {
 	protected TreeMap<Integer,MeshNode> nodes;
 	protected TreeMapListWrapper listWrapper;
 	
+	/**
+	 * Construct an empty Mesh. This should only be called by MeshSynthesizer.
+	 */
 	protected Mesh() {
 		nodes = new TreeMap<Integer,MeshNode>();
 	}
 	
+	/**
+	 * Get a Node by a certain NodeID
+	 * @param nodeId
+	 * @return
+	 */
 	public MeshNode getNode(Integer nodeId) {
 		return nodes.get(nodeId);
 	}
 	
+	/**
+	 * Insert a new node into the mesh
+	 * @param nodeId
+	 * @param node
+	 */
 	public void addNode(Integer nodeId, MeshNode node) {
 		nodes.put(nodeId,node);
 	}
@@ -40,6 +52,11 @@ public class Mesh extends JBambooNamespace implements Iterable<MeshNode> {
 		return nodes.values().iterator();
 	}
 	
+	/**
+	 * Iterate over unique pairs of nodes. That is, iterate over <code>(i,j)</code> without later
+	 * iterating over <code>(j,i)</code>.
+	 * @return
+	 */
 	public Iterator<Pair<MeshNode>> symmetricPairIterator() {
 		return new SymmetricPairIterator<MeshNode>(listWrapper);
 	}
@@ -49,6 +66,12 @@ public class Mesh extends JBambooNamespace implements Iterable<MeshNode> {
 		return String.format("Mesh with %d nodes", nodes.size());
 	}
 	
+	/**
+	 * This is a syntactic sugar class to make a TreeMap act as a list. It only exists because the MeshNodes
+	 * are stored in a TreeMap, but they really could be stored in an ArrayList just as easily.
+	 * @author robert
+	 *
+	 */
 	public class TreeMapListWrapper implements List<MeshNode> {
 
 		@Override

@@ -2,6 +2,12 @@ package jbamboo.functions;
 
 import jbamboo.basetypes.Point;
 
+/**
+ * This is a RealFunction subclass that acts as a <code>+</code> in an execution tree. It's job
+ * is to evaluate both of its addend functions for a given point, and then to return their sum.
+ * @author robertdfrench
+ *
+ */
 public class Sum extends RealFunction {
 
 	RealFunction left;
@@ -12,6 +18,11 @@ public class Sum extends RealFunction {
 		return left.valueForPoint(p) + right.valueForPoint(p);
 	}
 
+	/**
+	 * Creates a Real Function that will evaluate <code>left(point) + right(point)</code>
+	 * @param left
+	 * @param right
+	 */
 	public Sum(RealFunction left, RealFunction right) {
 		this.left = left;
 		this.right = right;

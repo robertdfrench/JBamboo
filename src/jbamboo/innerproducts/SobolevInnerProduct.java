@@ -9,6 +9,12 @@ import jbamboo.exceptions.IntegrationException;
 import jbamboo.exceptions.InvalidElementException;
 import jbamboo.functions.RealFunction;
 
+/**
+ * This is an inner Product that can be used to calculate the Stiffness Matrix
+ * for ODE's like <code>-u''=f(x)</code>.
+ * @author robertdfrench
+ *
+ */
 public class SobolevInnerProduct extends JBambooNamespace implements
 		InnerProduct {
 

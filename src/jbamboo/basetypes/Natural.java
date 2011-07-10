@@ -82,12 +82,18 @@ public class Natural implements Iterable<Integer> {
 			this.current = 0;
 		}
 
+		/**
+		 * Ye olde hasNext(), tells us whether we have numbers remaining
+		 */
 		@Override
 		public boolean hasNext() {
 			// TODO Auto-generated method stub
 			return (current < max);
 		}
 
+		/**
+		 * returns the next number in the sequence
+		 */
 		@Override
 		public Integer next() {
 			// TODO Auto-generated method stub
@@ -95,6 +101,9 @@ public class Natural implements Iterable<Integer> {
 			return current;
 		}
 
+		/**
+		 * Not implemented
+		 */
 		@Override
 		public void remove() {
 			// TODO Auto-generated method stub

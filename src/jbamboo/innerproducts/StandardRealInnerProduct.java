@@ -9,6 +9,11 @@ import jbamboo.exceptions.IntegrationException;
 import jbamboo.exceptions.InvalidElementException;
 import jbamboo.functions.RealFunction;
 
+/**
+ * This is an Inner Product which can be used to construct the load vector anywhere, I think.
+ * @author robertdfrench
+ *
+ */
 public class StandardRealInnerProduct extends JBambooNamespace implements InnerProduct {
 	
 	private Natural precision;
