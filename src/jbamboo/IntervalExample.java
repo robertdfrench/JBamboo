@@ -1,30 +1,18 @@
 package jbamboo;
 
-import java.util.Set;
-
+import jbamboo.basetypes.JBambooNamespace;
+import jbamboo.exceptions.IntegrationException;
+import jbamboo.exceptions.InvalidElementException;
+import jbamboo.exceptions.InvalidElementType;
+import jbamboo.functions.RealFunction;
+import jbamboo.innerproducts.InnerProduct;
+import jbamboo.mesh.Mesh;
+import jbamboo.mesh.MeshNode;
 import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.sparse.CG;
 import no.uib.cipr.matrix.sparse.IterativeSolverNotConvergedException;
-import jbamboo.basetypes.JBambooNamespace;
-import jbamboo.basetypes.Point;
-import jbamboo.elements.FiniteElement;
-import jbamboo.elements.IntervalElement;
-import jbamboo.exceptions.BadTentConfigurationException;
-import jbamboo.exceptions.IntegrationException;
-import jbamboo.exceptions.InvalidElementException;
-import jbamboo.exceptions.InvalidElementType;
-import jbamboo.functions.Polynomial;
-import jbamboo.functions.RealFunction;
-import jbamboo.functions.TentFunction2D;
-import jbamboo.functions.Zero;
-import jbamboo.innerproducts.InnerProduct;
-import jbamboo.innerproducts.SobolevInnerProduct;
-import jbamboo.innerproducts.StandardRealInnerProduct;
-import jbamboo.mesh.Mesh;
-import jbamboo.mesh.MeshNode;
-import jbamboo.mesh.MeshSynthesizer;
 
 /**
  * This is an example of solving an ODE. It should probably be refactored as a unit test.
@@ -45,65 +33,48 @@ public class IntervalExample extends JBambooNamespace {
 	 * @throws IntegrationException
 	 * @throws IterativeSolverNotConvergedException 
 	 */
-	public static void doIntervalExample() throws InvalidElementType, InvalidElementException, IntegrationException, IterativeSolverNotConvergedException {
+	public static void doIntervalExample(Integer numElements, RealFunction f, InnerProduct loadIP, InnerProduct stiffnessIP) throws InvalidElementType, InvalidElementException, IntegrationException, IterativeSolverNotConvergedException {
 		System.out.println("***************Interval Example*****************");
-		Integer numNodes = 51;
-		Integer numElements = numNodes - 1;
-		Double height = 1.0;
-		Integer precision = 100;
-		RealFunction f = new Polynomial(-6.0,4.0);
+		long[] timestamps = new long[6];
+		long[] results = new long[5];
+		timestamps[0] = System.currentTimeMillis();
 		
-		MeshSynthesizer ms = new MeshSynthesizer();
-		Double h = 1.0 / (double) numElements;
-		for(Integer i : natural(numNodes)) {
-			Point p = point((i - 1)*h);
-			ms.createNode(p, i);
-		}
-		for(Integer i : natural(numElements)) {
-			ms.createElement(IntervalElement.class.getName(),i,i + 1);
-		}
-		Mesh m = ms.getMesh();
-		DenseMatrix stiffnessMatrix = new DenseMatrix(numNodes,numNodes);
-		DenseVector loadVector = new DenseVector(numNodes);
-		InnerProduct loadIP = new StandardRealInnerProduct(natural(precision));
-		InnerProduct stiffnessIP = new SobolevInnerProduct(natural(precision));
-		for (MeshNode n : m) {
-			RealFunction phi_n;
-			try {
-				phi_n = TentFunction2D.forNode(n, height);
-			} catch (BadTentConfigurationException e) {
-				phi_n = new Zero();
-			}
-			n.attachBasisFunction(phi_n);
-			Double innerProduct = loadIP.compute(f, phi_n, n.getCommonElements(n));
-			loadVector.set(n.getNodeId() - 1, innerProduct);
-		}
-		System.out.println("Load Vector:");
-		System.out.println(loadVector);
+		Integer numNodes = numElements + 1;
+		Mesh m = uniformIntervalMesh(0.0,1.0,natural(numElements));
+		timestamps[1] = System.currentTimeMillis();
 		
+		applyDefaultBasisScheme(m);
+		timestamps[2] = System.currentTimeMillis();
 		
-		for (Integer i : natural(numNodes)) {
-			for (Integer j : natural(numNodes)) {
-				MeshNode mi = m.getNode(i);
-				MeshNode mj = m.getNode(j);
-				RealFunction phi_i = mi.getBasisFunction();
-				RealFunction phi_j = mj.getBasisFunction();
-				Set<FiniteElement> commonElements = mi.getCommonElements(mj);
-				Double innerProduct = stiffnessIP.compute(phi_i,phi_j,commonElements);
-				stiffnessMatrix.set(i - 1,j - 1,innerProduct);
-			}
-		}
-		System.out.println("Stiffness Matrix:");
-		System.out.println(stiffnessMatrix);
+		DenseVector loadVector = computeLoadVector(m,loadIP,f);
+		timestamps[3] = System.currentTimeMillis();
 		
-		DenseVector initialGuess = new DenseVector(numNodes);
-		System.out.println("Initial Guess:");
-		System.out.println(initialGuess);
+		DenseMatrix stiffnessMatrix = computeStiffnessMatrix(m, stiffnessIP);
+		timestamps[4] = System.currentTimeMillis();
 		
+		DenseVector initialGuess = new DenseVector(numNodes);	
 		CG solver = new CG(initialGuess);
 		Vector solution = solver.solve(stiffnessMatrix, loadVector, initialGuess);
-		System.out.println("Potentially Modified Initial Guess:");
-		System.out.println(initialGuess);
+		timestamps[5] = System.currentTimeMillis();
+		
+		for(int i = 1; i < 6; i++) {
+			results[i - 1] = timestamps[i] - timestamps[i - 1];
+		}
+		
+		/**
+		 * Print results
+		 */
+		System.out.format("Mesh Construction:            %d(ms)\n", results[0]);
+		System.out.format("Mesh Decoration:              %d(ms)\n", results[1]);
+		System.out.format("Load Vector Calculation:      %d(ms)\n", results[2]);
+		System.out.format("Stiffness Matrix Calculation: %d(ms)\n", results[3]);
+		System.out.format("Conjugate Gradient Iteration: %d(ms)\n", results[4]);
+		
+		System.out.println("Load Vector");
+		System.out.println(loadVector);
+		
+		System.out.println("Stiffness Matrix:");
+		System.out.println(stiffnessMatrix);
 		
 		System.out.println("Solution:");
 		for(Integer i : natural(numNodes)) {

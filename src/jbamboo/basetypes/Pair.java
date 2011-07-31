@@ -43,4 +43,11 @@ public class Pair<E> {
 	public String toString() {
 		return String.format("Pair (%s,%s)",i,j);
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		@SuppressWarnings("unchecked")
+		Pair<Object> that = (Pair<Object>) o;
+		return this.i.equals(that.i) && this.j.equals(that.j);
+	}
 }

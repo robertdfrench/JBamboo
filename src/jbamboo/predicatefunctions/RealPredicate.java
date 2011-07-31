@@ -4,7 +4,7 @@ import jbamboo.basetypes.Point;
 
 /**
  * Common Interface for RealPredicates.
- * @author robert
+ * @author robertdfrench
  *
  */
 public interface RealPredicate {
