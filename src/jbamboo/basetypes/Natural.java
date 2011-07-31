@@ -58,7 +58,6 @@ public class Natural implements Iterable<Integer> {
 	/**
 	 * Idiom to help iterate {1,2,...,<code>toInt()</code>}
 	 */
-	@Override
 	public Iterator<Integer> iterator() {		
 		return new NaturalIterator(this);
 	}
@@ -85,7 +84,6 @@ public class Natural implements Iterable<Integer> {
 		/**
 		 * Ye olde hasNext(), tells us whether we have numbers remaining
 		 */
-		@Override
 		public boolean hasNext() {
 			// TODO Auto-generated method stub
 			return (current < max);
@@ -94,7 +92,6 @@ public class Natural implements Iterable<Integer> {
 		/**
 		 * returns the next number in the sequence
 		 */
-		@Override
 		public Integer next() {
 			// TODO Auto-generated method stub
 			current++;
@@ -104,7 +101,6 @@ public class Natural implements Iterable<Integer> {
 		/**
 		 * Not implemented
 		 */
-		@Override
 		public void remove() {
 			// TODO Auto-generated method stub
 			
