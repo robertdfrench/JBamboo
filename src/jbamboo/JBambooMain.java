@@ -36,22 +36,22 @@ public class JBambooMain extends JBambooNamespace {
 		InnerProduct stiffnessIP;
 		
 		
-		/*System.out.println("Solving -u''=-6x+4 on [0,1] with bd=0");
+		System.out.println("Solving -u''=-6x+4 on [0,1] with bd=0");
 		numElements = 100;
 		precision = 10000;
 		f = new Polynomial(-6.0,4.0);
 		loadIP = new StandardRealInnerProduct(natural(precision));
 		stiffnessIP = new SobolevInnerProduct(natural(precision));
-		IntervalExample.doIntervalExample(numElements,f,loadIP,stiffnessIP);*/
+		IntervalExample.doIntervalExample(numElements,f,loadIP,stiffnessIP);
 		
 		
-		System.out.println("Solving -u'' + u=-0 on [0,1] with bd=0");
+		/*System.out.println("Solving -u'' + u=-0 on [0,1] with bd=0");
 		numElements = 100;
 		precision = 10000;
 		f = new Zero();
 		loadIP = new StandardRealInnerProduct(natural(precision));
 		stiffnessIP = new SuperSobolevInnerProduct(natural(precision));
-		IntervalExample.doIntervalExample(numElements,f,loadIP,stiffnessIP);
+		IntervalExample.doIntervalExample(numElements,f,loadIP,stiffnessIP);*/
 	}
 	
 	
