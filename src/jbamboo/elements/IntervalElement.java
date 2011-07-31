@@ -68,7 +68,7 @@ public class IntervalElement extends FiniteElement {
 
 	@Override
 	public Double integrate(RealFunction f, Natural numPoints) {
-		Double integral = 0.0;
+		/*Double integral = 0.0;
 		Double width = this.getLength() / numPoints.toDouble();
 		Point p = new Point(lowerBound);
 		for (Integer i : numPoints) {
@@ -76,7 +76,46 @@ public class IntervalElement extends FiniteElement {
 			integral += width*f.valueForPoint(p);
 		}
 		
-		return integral;
+		return integral;*/
+		
+		// Composite Simpsons 1D
+		/*Double compSimpsons1d = 0.0, evenSum = 0.0, oddSum = 0.0;
+		Point p = new Point(lowerBound);
+	    Point a = lowerBound;
+	    Point b = upperBound;
+	    Double h = this.getLength() / numPoints.toDouble();
+
+	    for (int i=0; i < numPoints.toInt(); i++) {
+	      if ( (i%2) == 0 ) {
+	    	p.x(a.x() + (double)i*h);
+	        evenSum += f.valueForPoint(p);
+	      } else {
+	    	p.x(a.x() + (double)i*h);
+	        oddSum += f.valueForPoint(p);
+	      }
+	    }
+
+	    compSimpsons1d = ((h/3.0) * ( f.valueForPoint(a) + f.valueForPoint(b) + 2.0*evenSum + 4.0*oddSum ));
+	    
+	    return compSimpsons1d;*/
+		
+		// Gaussian Quadrature 1D w/ n=5
+		Double r[] = { 0.9061798459386640, 0.5384693101056831, 0.0000000000000000, -0.5384693101056831, -0.9061798459386640 };
+		Double coeff[] = { 0.2369268850561891, 0.4786286704993665, 0.5688888888888889, 0.4786286704993665, 0.2369268850561891 };
+		
+		Double gaussQuad1d5 = 0.0, sum = 0.0;
+	    Point a = lowerBound;
+	    Point b = upperBound;
+	    Point p = new Point(lowerBound);
+
+	    for (int i = 0; i <= 4; i++) {
+	    	p.x( ((b.x()-a.x())*r[i] + b.x() + a.x()) / 2.0 );
+	    	sum += coeff[i]*f.valueForPoint(p);
+	    }
+
+	    gaussQuad1d5 = ( (b.x()-a.x()) / 2.0 ) * sum;
+	      
+	    return gaussQuad1d5;
 	}
 
 	@Override
