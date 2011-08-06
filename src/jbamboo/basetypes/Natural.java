@@ -20,5 +20,6 @@ public class Natural extends AbstractBoundedInteger {
 	public static Natural get(int number) {
 		if (!cache.containsKey(number)) cache.put(number, new Natural(number));
 		return cache.get(number);
+
 	}
 }

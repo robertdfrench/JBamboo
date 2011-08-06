@@ -43,6 +43,7 @@ public class IntervalExample extends JBambooNamespace {
 		
 		Integer numNodes = numElements + 1;
 		Mesh m = uniformIntervalMesh(0.0,1.0,Natural.get(numElements));
+
 		timestamps[1] = System.currentTimeMillis();
 		
 		applyDefaultBasisScheme(m);

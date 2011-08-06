@@ -10,6 +10,7 @@ import jbamboo.exceptions.InvalidElementException;
 import jbamboo.exceptions.InvalidElementType;
 import jbamboo.functions.Polynomial;
 import jbamboo.functions.RealFunction;
+
 import jbamboo.innerproducts.*;
 
 /**
@@ -46,6 +47,12 @@ public class JBambooMain extends JBambooNamespace {
 		
 		
 		/**System.out.println("Solving -u'' + u = 0 on [0,1] with bd=0");
+		loadIP = new StandardRealInnerProduct(natural(precision));
+		stiffnessIP = new SobolevInnerProduct(natural(precision));
+		IntervalExample.doIntervalExample(numElements,f,loadIP,stiffnessIP);
+		
+		
+		/*System.out.println("Solving -u'' + u=-0 on [0,1] with bd=0");
 		numElements = 100;
 		precision = 10000;
 		f = new Zero();

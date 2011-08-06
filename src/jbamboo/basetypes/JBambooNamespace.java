@@ -122,6 +122,7 @@ public abstract class JBambooNamespace {
 	}
 	
 	/**
+
 	 * Computes the stiffness matrix
 	 * @param m
 	 * @param stiffnessIP
