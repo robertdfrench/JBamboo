@@ -1,4 +1,4 @@
-package jbamboo.elements.tests;
+package jbamboo.elements;
 
 import static org.junit.Assert.*;
 import jbamboo.basetypes.Natural;
@@ -49,7 +49,7 @@ public class IntervalElementTest {
 	@Test
 	public final void testIntegrate() throws InvalidIntervalException {
 		IntervalElement e = new IntervalElement(a,b);
-		Double integral = e.integrate(new MockRealFunction(), new Natural(100));
+		Double integral = e.integrate(new MockRealFunction(), Natural.get(100));
 		assertTrue (
 			String.format("Got\t %f\nExp\t %f", integral, 2.0),
 			Math.abs(integral - 2.0) < 0.00001

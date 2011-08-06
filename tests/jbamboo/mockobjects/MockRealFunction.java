@@ -15,5 +15,11 @@ public class MockRealFunction extends RealFunction {
 		// TODO Auto-generated method stub
 		return "mock(p)";
 	}
+
+	@Override
+	public RealFunction getDerivative() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

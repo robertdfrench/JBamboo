@@ -1,8 +1,7 @@
-package jbamboo.basetypes.tests;
+package jbamboo.basetypes;
 
 import static org.junit.Assert.*;
 import jbamboo.basetypes.JBambooNamespace;
-import jbamboo.basetypes.Natural;
 import jbamboo.basetypes.Point;
 
 import org.junit.After;
@@ -37,20 +36,6 @@ public class JBambooNamespaceTest {
 		assertTrue(p.getCoordinate(3) == 5.6);
 		assertTrue(p.getCoordinate(4) == -1700.0);
 		assertTrue(p.getCoordinate(5) == 34.56);
-	}
-
-	@Test
-	public final void testNaturalInt() {
-		Natural n = JBambooNamespace.natural(5);
-		Natural m = JBambooNamespace.natural(-5);
-		assertTrue(n.toInt() == m.toInt());
-	}
-
-	@Test
-	public final void testNaturalDouble() {
-		Natural n = JBambooNamespace.natural(5);
-		Natural m = JBambooNamespace.natural(-5.7);
-		assertTrue(n.toInt() == m.toInt());
 	}
 
 }

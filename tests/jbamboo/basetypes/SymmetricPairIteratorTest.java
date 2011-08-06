@@ -1,4 +1,4 @@
-package jbamboo.basetypes.tests;
+package jbamboo.basetypes;
 
 import static org.junit.Assert.*;
 
@@ -51,7 +51,7 @@ public class SymmetricPairIteratorTest {
 		for(Pair<Integer> p : spi) {
 			sb.append(p);
 		}
-		String controlString = "Pair (1,1)Pair (1,2)Pair (1,3)Pair (2,2)Pair (2,3)Pair (3,3)";
+		String controlString = "Pair {1,1}Pair {1,2}Pair {1,3}Pair {2,2}Pair {2,3}Pair {3,3}";
 		assertEquals(sb.toString(),controlString);
 	}
 

@@ -1,6 +1,7 @@
 package jbamboo.mesh;
 
 import jbamboo.basetypes.JBambooNamespace;
+import jbamboo.basetypes.Natural;
 import jbamboo.basetypes.Point;
 import jbamboo.elements.ElementFactory;
 import jbamboo.elements.FiniteElement;
@@ -49,7 +50,7 @@ public class MeshSynthesizer extends JBambooNamespace {
 	public void createElement(String elementType, Integer ... nodeIds) throws InvalidElementType, InvalidElementException {
 		MeshNode[] requestedNodes = new MeshNode[nodeIds.length];
 		Point[] associatedPoints = new Point[nodeIds.length];
-		for (Integer i : natural(nodeIds.length)) {
+		for (Integer i : Natural.get(nodeIds.length)) {
 			requestedNodes[i - 1] = mesh.getNode(nodeIds[i - 1]);
 			associatedPoints[i - 1] = requestedNodes[i - 1].getPoint();
 		}

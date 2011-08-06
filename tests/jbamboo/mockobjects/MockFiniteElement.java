@@ -3,6 +3,7 @@ package jbamboo.mockobjects;
 import jbamboo.basetypes.Natural;
 import jbamboo.basetypes.Point;
 import jbamboo.elements.FiniteElement;
+import jbamboo.exceptions.InvalidElementException;
 import jbamboo.functions.RealFunction;
 
 public class MockFiniteElement extends FiniteElement {
@@ -43,5 +44,24 @@ public class MockFiniteElement extends FiniteElement {
 	
 	public void setPoint(Natural i, Point p) {
 		super.setPoint(i, p);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Double[] apply(RealFunction f, Natural numPoints) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected FiniteElement semiconstructor(Point... points)
+			throws InvalidElementException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

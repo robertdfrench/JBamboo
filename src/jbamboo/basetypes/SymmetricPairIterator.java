@@ -31,8 +31,8 @@ public class SymmetricPairIterator<E> implements Iterator<Pair<E>>, Iterable<Pai
 	 */
 	public SymmetricPairIterator(List<E> list) {
 		this.list = list;
-		this.outerIndex = 0;
-		this.innerIndex = 0;
+		this.outerIndex = 1;
+		this.innerIndex = 1;
 	}
 
 	/**

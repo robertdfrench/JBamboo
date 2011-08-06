@@ -1,4 +1,4 @@
-package jbamboo.predicatefunctions.tests;
+package jbamboo.predicatefunctions;
 
 import static org.junit.Assert.*;
 import jbamboo.basetypes.Point;

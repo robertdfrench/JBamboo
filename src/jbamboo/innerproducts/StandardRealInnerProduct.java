@@ -18,12 +18,16 @@ public class StandardRealInnerProduct extends JBambooNamespace implements InnerP
 	
 	private Natural precision;
 	
+	/**
+	 * This is simply the integral of f*g
+	 * @param precision
+	 */
 	public StandardRealInnerProduct(Natural precision) {
 		this.precision = precision;
 	}
 
 	@Override
-	public Double compute(RealFunction f, RealFunction g,
+	public Double computeNumerically(RealFunction f, RealFunction g,
 			Set<FiniteElement> elements) throws InvalidElementException,
 			IntegrationException {
 		Double innerProduct = 0.0;
@@ -31,9 +35,15 @@ public class StandardRealInnerProduct extends JBambooNamespace implements InnerP
 		RealFunction f_times_g = f.times(g);
 		for(FiniteElement e : elements) {
 			innerProduct += e.integrate(f_times_g, precision);
+			e.getClass().getName();
 		}
 		
 		return innerProduct;
+	}
+	
+	@Override
+	public Double computeGeometrically(RealFunction f, RealFunction g, Set<FiniteElement> elements) throws InvalidElementException {
+		return 0.0;
 	}
 
 	public String toString() {

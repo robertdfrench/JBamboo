@@ -1,4 +1,4 @@
-package jbamboo.elements.tests;
+package jbamboo.elements;
 
 import static org.junit.Assert.*;
 import jbamboo.basetypes.Natural;
@@ -38,16 +38,16 @@ public class FiniteElementTest {
 	@Test
 	public final void testInitializePoints() {
 		MockFiniteElement e = new MockFiniteElement();
-		e.initializePoints(new Natural(5));
+		e.initializePoints(Natural.get(5));
 		assertTrue(e.getPoints().length == 5);
 	}
 
 	@Test
 	public final void testSetPoint() {
 		MockFiniteElement e = new MockFiniteElement();
-		e.initializePoints(new Natural(5));
+		e.initializePoints(Natural.get(5));
 		Point p = new Point(1.0,2.0);
-		e.setPoint(new Natural(4), p);
+		e.setPoint(Natural.get(4), p);
 	}
 
 }

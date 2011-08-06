@@ -1,8 +1,8 @@
-package jbamboo.functions.tests;
+package jbamboo.functions;
 
 import static org.junit.Assert.*;
 import jbamboo.basetypes.Point;
-import jbamboo.functions.Product;
+import jbamboo.functions.Sum;
 import jbamboo.mockobjects.MockRealFunction;
 
 import org.junit.After;
@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ProductTest {
+public class SumTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -32,25 +32,25 @@ public class ProductTest {
 	@Test
 	public final void testToString() {
 		MockRealFunction f = new MockRealFunction();
-		Product f_times_f = new Product(f,f);
-		String expected = String.format("(%s) * (%s)",f,f);
-		String got = f_times_f.toString();
+		Sum f_plus_f = new Sum(f,f);
+		String expected = String.format("(%s) + (%s)",f,f);
+		String got = f_plus_f.toString();
 		assertEquals(expected,got);
 	}
 
 	@Test
 	public final void testValueForPoint() {
 		MockRealFunction f = new MockRealFunction();
-		Product f_times_f = new Product(f,f);
-		Double expected = 1.0;
-		Double got = f_times_f.valueForPoint(new Point(0.0));
+		Sum f_plus_f = new Sum(f,f);
+		Double expected = 2.0;
+		Double got = f_plus_f.valueForPoint(new Point(0.0));
 		assertEquals(expected,got);
 	}
 
 	@Test
-	public final void testProduct() {
+	public final void testSum() {
 		MockRealFunction f = new MockRealFunction();
-		new Product(f,f);
+		new Sum(f,f);
 	}
 
 }

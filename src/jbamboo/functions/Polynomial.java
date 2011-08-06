@@ -122,7 +122,7 @@ public class Polynomial extends RealFunction {
 	public RealFunction getDerivative() {
 		Polynomial derivative = new Polynomial();
 		for (Integer exponent : coefficients.keySet()) {
-			derivative.setCoefficient(exponent - 1, coefficients.get(exponent) * exponent);
+			if (exponent > 0) derivative.setCoefficient(exponent - 1, coefficients.get(exponent) * exponent);
 		}
 		return derivative;
 	}

@@ -1,4 +1,4 @@
-package jbamboo.functions.tests;
+package jbamboo.functions;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -12,5 +12,5 @@ import org.junit.runners.Suite;
 	SumTest.class,
 	TentFunctionTest.class
 })
-public class AllTests {
+public class AllFunctionTests {
 }

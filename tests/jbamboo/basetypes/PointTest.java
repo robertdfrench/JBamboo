@@ -1,4 +1,4 @@
-package jbamboo.basetypes.tests;
+package jbamboo.basetypes;
 
 import static org.junit.Assert.*;
 import jbamboo.basetypes.Point;

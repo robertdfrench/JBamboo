@@ -31,13 +31,13 @@ public class IntervalElement extends FiniteElement {
 	 */
 	public IntervalElement(Point p, Point q) throws InvalidIntervalException {
 		if (p.getCoordinate(1) >= q.getCoordinate(1)) throw new InvalidIntervalException();
-		initializePoints(new Natural(2));
+		initializePoints(Natural.get(2));
 		
 		lowerBound = p;
-		setPoint(new Natural(1),p);
+		setPoint(Natural.get(1),p);
 		
 		upperBound = q;
-		setPoint(new Natural(2),q);
+		setPoint(Natural.get(2),q);
 	}
 
 	@Override

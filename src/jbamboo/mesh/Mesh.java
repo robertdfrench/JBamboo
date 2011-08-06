@@ -7,6 +7,7 @@ import java.util.ListIterator;
 import java.util.TreeMap;
 
 import jbamboo.basetypes.JBambooNamespace;
+import jbamboo.basetypes.Natural;
 import jbamboo.basetypes.Pair;
 import jbamboo.basetypes.SymmetricPairIterator;
 
@@ -26,6 +27,7 @@ public class Mesh extends JBambooNamespace implements Iterable<MeshNode> {
 	 */
 	protected Mesh() {
 		nodes = new TreeMap<Integer,MeshNode>();
+		listWrapper = new TreeMapListWrapper();
 	}
 	
 	/**
@@ -57,13 +59,21 @@ public class Mesh extends JBambooNamespace implements Iterable<MeshNode> {
 	 * iterating over <code>(j,i)</code>.
 	 * @return
 	 */
-	public Iterator<Pair<MeshNode>> symmetricPairIterator() {
+	public Iterable<Pair<MeshNode>> symmetricPairIterator() {
 		return new SymmetricPairIterator<MeshNode>(listWrapper);
 	}
 	
 	@Override
 	public String toString() {
 		return String.format("Mesh with %d nodes", nodes.size());
+	}
+	
+	/**
+	 * Gets the number of nodes in the mesh
+	 * @return
+	 */
+	public Natural getNumNodes() {
+		return Natural.get(nodes.size());
 	}
 	
 	/**
